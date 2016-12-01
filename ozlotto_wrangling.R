@@ -60,26 +60,41 @@ df <- df %>%
 df$Date <- as.Date(as.character(df$Date), format = '%Y%m%d')
 
 
-#### Quantify duplicate draws
-# For each row, get seven numbers, order then record
+# #### Quantify duplicate draws
+# # For each row, get seven numbers, order then record
+# 
+# df$FirstDivision <- ""
+# 
+# for (i in 1:nrow(df)) {
+#     
+#     ## Get numbers from draws
+#     first_division <- as.numeric(df[i , c("Winning1", "Winning2", "Winning3", "Winning4", "Winning5", "Winning6", "Winning7")])
+#     
+#     ## Order draws
+#     first_division <- sort(first_division)
+# 
+#     ## Record ordered draw
+#     df$FirstDivision[i] <- paste(first_division, collapse=" ")
+# }
+# 
+# 
+# sum(duplicated(df$FirstDivision))
 
-df$FirstDivision <- ""
+## Stack all draws as one data frame column
+all_draws <- c(as.numeric(df$Winning1), 
+             as.numeric(df$Winning2),
+             as.numeric(df$Winning3),
+             as.numeric(df$Winning4),
+             as.numeric(df$Winning5),
+             as.numeric(df$Winning6),
+             as.numeric(df$Winning7))
 
-for (i in 1:nrow(df)) {
-    
-    ## Get numbers from draws
-    first_division <- as.numeric(df[i , c("Winning1", "Winning2", "Winning3", "Winning4", "Winning5", "Winning6", "Winning7")])
-    
-    ## Order draws
-    first_division <- sort(first_division)
+t = as.data.frame(table(all_draws))
+names(t)[1] = 'Draw'
+head(t)
 
-    ## Record ordered draw
-    df$FirstDivision[i] <- paste(first_division, collapse=" ")
-}
-
-
-
-## Order the seven winning numbers
-
-
+library(ggplot2)
+ggplot(t, aes(x = reorder(Draw, Freq), y = Freq)) + 
+    geom_bar(stat = "identity") +
+    coord_flip()
 
