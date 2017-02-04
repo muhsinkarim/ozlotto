@@ -80,11 +80,11 @@ all_draws <- c(df$winning_1,
 ## Build division 1 table
 all_division1_percentages = as.data.frame(table(all_draws))
 
-## Total number of lotto nights
-total_nights <- nrow(df)
+## Total draws
+total_draws <- length(all_draws)
 
-## Percentage of number drawn out of all nights
-all_division1_percentages$Percentage <- round(all_division1_percentages$Freq / total_nights * 100, 1)
+## Percentage of number drawn out of all draws
+all_division1_percentages$Percentage <- round(all_division1_percentages$Freq / total_draws * 100, 1)
 all_division1_percentages$all_draws <- as.numeric(all_division1_percentages$all_draws)
 colnames(all_division1_percentages) <- c("winning_draw", "frequency", "percentage")
 
@@ -106,11 +106,11 @@ all_draws <- c(df_winning_division1$winning_1,
 ## Build winning division 1 table
 winning_division1_percentages = as.data.frame(table(all_draws))
 
-## Total number of winning division 1 lotto nights
-total_nights <- nrow(winning_division1_percentages)
+## Total winning draws
+total_draws <- length(all_draws)
 
 ## Percentage of number drawn out of all nights
-winning_division1_percentages$Percentage <- round(winning_division1_percentages$Freq / total_nights * 100, 1)
+winning_division1_percentages$Percentage <- round(winning_division1_percentages$Freq / total_draws * 100, 1)
 winning_division1_percentages$all_draws <- as.numeric(winning_division1_percentages$all_draws)
 colnames(winning_division1_percentages) <- c("winning_draw", "frequency", "percentage")
 
